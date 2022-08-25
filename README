@@ -1,0 +1,44 @@
+#Butilca Rares
+
+This is the implementation of a few UTTT(https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe)
+strategies.
+
+* dummy strategy first: always chooses the first move possible in natural order of the moves:
+[nw,n,ne,w,c,e,..]. This applies first to the board position, and then the position in the board.
+
+* dummy strategy last: same but in reverse order of the available positions
+
+* narrow greedy: will use priorities. First choose the board with the least priority, followd by the
+position with the least priority:
+
+Priorities:
+0: winner moves for that board
+1: moves that block the enemy from winning that board(moves that if the enemy choose, will bring
+them a win)
+2: when the board is empty, corners have this priority
+3: if the current player made no move and the enemy already marked the center, corners have this
+priority
+3: same but for center if the enemy didnt move there yet
+4: moves that lead the the current player being able to win in one more move afterwards
+5: if the others dont apply, then moves in the corners get this priority
+6: any other case has this priority
+
+* greedy: analyses all boards for next moves
+
+Priorities in order:
+- winner moves
+- moves that force the oponent to make a move in a board where they havent moved yet
+- moves that force the oponent to make a move in a board where they moved only once
+- moves that force the oponent to make a move in a board where they moved at least twice, firstly
+choosing the boards where the current player has done more moves
+- moves that no rule apply to, including the ones below
+- moves that lead the oponent to a board where the current player is about to win
+- moves that lead to oponent to a board where the oponent can win in one move, but that move will
+lead the current player to a board where they are about to win in one move or the board is already
+finished
+- same, but in this case the current player is not about to win the board where that move will lead
+them to
+- moves that lead the oponent in an already finished board
+- moves that lead the oponent to a board where they can win the whole game in a move
+
+If 2 moves get the same priority, the order will be the natural order of the moves [nw,n,ne,..].
